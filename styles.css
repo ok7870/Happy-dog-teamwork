@@ -3,3 +3,11 @@ display: flex;
 justify-content: center;
 align-items: center;
 }
+
+.logo{
+    border: 0;
+    border-style: none;
+    font-size: x-large;
+    font-weight: 500;
+    background: none;
+}
