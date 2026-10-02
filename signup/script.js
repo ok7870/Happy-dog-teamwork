@@ -1,4 +1,6 @@
-import data from '../info.json' with { type: 'json'};
+import jsondata from '../info.json' with { type: 'json'};
+import fs from 'fs/promises';
+
 window.signup = function signup() {
     let newemail = document.getElementById("newuserinfo_email").value;
     let newusername = document.getElementById("newuserinfo_username").value;
@@ -16,6 +18,7 @@ window.signup = function signup() {
     } 
 
     else {
-        console.log(data.name);
+        console.log(jsondata.name);
     }
+    //kuradi aja raiskamine
 }
