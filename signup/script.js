@@ -1,5 +1,5 @@
 const p = document.createElement("p");
-window.signup = function signup() {
+function signup() {
     let newemail = document.getElementById("newuserinfo_email").value;
     let newusername = document.getElementById("newuserinfo_username").value;
     let newpassword = document.getElementById("newuserinfo_password").value;
@@ -25,7 +25,19 @@ window.signup = function signup() {
     } 
 
     else {
-        fetch("https://script.google.com/macros/s/AKfycbz5KYVR22bnQQK03s-LDY8Ef6kjAMZZutN5WxG7Qfo8hbX-MXZh8qSo5M0ahghz8_e6/exec?"+"operation=signup"+"&username="+newusername+"&newemail="+newemail+"&newpassword="+newpassword)
+        document.getElementById("newusercreation").style.display="none";
+        document.getElementById("loading").style.display="flex"; //laadimis ekraani display muutuja
+        fetch("https://script.google.com/macros/s/AKfycbz5KYVR22bnQQK03s-LDY8Ef6kjAMZZutN5WxG7Qfo8hbX-MXZh8qSo5M0ahghz8_e6/exec?"+"operation=signup"+"&username="+newusername+"&newemail="+newemail+"&newpassword="+newpassword).then(
+            d => d.text()).then(recived_fetch);
     }
+}
 
+function recived_fetch(returne) {
+    document.getElementById("loading").style.display="none"
+    document.getElementById('account_created').style.display="flex"
+    localStorage.setItem("logincheck", JSON.stringify({
+        "username" : newusername,
+        "email" : newemail,
+        "password" : newpassword
+    }))
 }

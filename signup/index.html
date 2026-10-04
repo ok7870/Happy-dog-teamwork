@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="../styles.css" />
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
     <main>
@@ -16,14 +16,21 @@
         </header>
 
         <section>
-          <h2>log in</h2>
+          <h2>sign up</h2>
           <div class="" id="newusercreation">
             <input class="" id="newuserinfo_email" type="text" placeholder="email">
             <input class="" id="newuserinfo_username" type="text" placeholder="username">
             <input class="" id="newuserinfo_password" type="password" placeholder="password">
             <input class="" id="newuserinfo_passwordagain" type="password" placeholder="confirm password">
-            <button onclick="signup()" class="">sign up</button>
-            
+            <button onclick="signup()" class="">sign up</button>            
+          </div>
+
+          <div id="loading" style="display: none;"> <!--ei putu, js sis saab muuta real 29-->
+            <h1>LOADING, GIMMI A MOMENT</h1>
+          </div>
+
+          <div id="account_created" style="display: none;"><!--sama asi, muuda rida 39-->
+            <h2>congrats, you hame made an acount</h2>
           </div>
         </section>
     </main>
