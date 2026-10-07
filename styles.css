@@ -1,6 +1,6 @@
 header {
 display: flex;
-justify-content: center;
+flex-direction:column;
 align-items: center;
 }
 
@@ -10,4 +10,8 @@ align-items: center;
     font-size: x-large;
     font-weight: 500;
     background: none;
+}
+
+body {
+    background-color: yellow;
 }
