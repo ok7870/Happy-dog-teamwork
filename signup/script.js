@@ -27,7 +27,7 @@ function signup() {
     else {
         document.getElementById("newusercreation").style.display="none";
         document.getElementById("loading").style.display="flex"; //laadimis ekraani display muutuja
-        fetch("https://script.google.com/macros/s/AKfycbz5KYVR22bnQQK03s-LDY8Ef6kjAMZZutN5WxG7Qfo8hbX-MXZh8qSo5M0ahghz8_e6/exec?"+"operation=signup"+"&username="+newusername+"&newemail="+newemail+"&newpassword="+newpassword).then(
+        fetch("https://script.google.com/macros/s/AKfycby6zQgXblywwWflmcfwcj7--FbGAelkP1OO7JxTpzQHskYOxdMafSGKkxyOAwgiOW9W/exec?"+"operation=signup"+"&username="+newusername+"&newemail="+newemail+"&newpassword="+newpassword).then(
             d => d.text()).then(recived_fetch);
     }
 }
