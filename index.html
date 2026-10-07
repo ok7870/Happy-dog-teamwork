@@ -15,20 +15,23 @@
             <button onclick="window.location.href='signup/index.html'">sign up</button>
         </header>
 
-        <!--walker page-->
-        <section class="walker-section">
-            <div></div>
+        <section class="walker-section" aria-labelledby="walker-heading">
+          <h1 id="walker-heading">Meet our dog walkers</h1>
+          <ul id="walker-list" class="walker-list">
+            <li class="walker-card">
+              <h2 class="walker-name">Alex</h2>
+              <p>Enjoys relaxed neighborhood walks and getting to know every dog's pace.</p>
+            </li>
+            <li class="walker-card">
+              <h2 class="walker-name">Jamie</h2>
+              <p>Loves active walks, fresh air, and helping dogs explore outdoors.</p>
+            </li>
+            <li class="walker-card">
+              <h2 class="walker-name">Taylor</h2>
+              <p>Patient and caring with dogs who prefer a calm, steady walk.</p>
+            </li>
+          </ul>
         </section>
-        
-      <div id="walker-list" class="walker-list"></div>
-
-      <!-- Template for walker cards -->
-      <template id="walker-card-template">
-        <div class="walker-card">
-          <img src="" alt="Walker's image" class="walker-image" />
-          <h2 class="walker-name"></h2>
-        </div>
-      </template>
     </main>
   </body>
 </html>
