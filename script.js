@@ -91,6 +91,9 @@ for (const walker of walkers) {
     `;
     document.getElementById(`walker-${walker["name"].split(" ")[0]}`).appendChild(walkerDetails);
     }
+    else {
+      document.getElementById(`walker-${walker["name"].split(" ")[0]}`).querySelector(".walker-details-popup").remove();
+    }
   }
   const image = document.createElement("img");
   image.className = "walker-image";
