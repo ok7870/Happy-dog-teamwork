@@ -79,6 +79,7 @@ for (const walker of walkers) {
   card.id = `walker-${walker["name"].split(" ")[0]}`;
   card.className = "walker-card";
   card.onclick = () => {
+    if (!Boolean(document.getElementById(`walker-${walker["name"].split(" ")[0]}`).querySelector(".walker-details-popup"))) {
     let walkerDetails = document.createElement("div");
     walkerDetails.className = "walker-details-popup";
     walkerDetails.innerHTML = `
@@ -89,8 +90,8 @@ for (const walker of walkers) {
       <p><strong>Description:</strong> ${walker.description}</p>
     `;
     document.getElementById(`walker-${walker["name"].split(" ")[0]}`).appendChild(walkerDetails);
+    }
   }
-
   const image = document.createElement("img");
   image.className = "walker-image";
   image.src = walker.image_url;
