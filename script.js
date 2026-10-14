@@ -130,3 +130,4 @@ for (const walker of walkers) {
   card.append(image, details, rate);
   walkerList.append(card);
 }
+
