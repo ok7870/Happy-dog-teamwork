@@ -71,6 +71,39 @@ const walkers = [
   },
 ];
 
+const walkerList = document.querySelector("#walker-list");
+
 for (const walker of walkers) {
-  console.log(walker.name);
+  const card = document.createElement("li");
+  card.className = "walker-card";
+
+  const image = document.createElement("img");
+  image.className = "walker-image";
+  image.src = walker.image_url;
+  image.alt = `Portrait of ${walker.name}`;
+  image.loading = "lazy";
+
+  const details = document.createElement("div");
+  details.className = "walker-details";
+
+  const name = document.createElement("h2");
+  name.className = "walker-name";
+  name.textContent = walker.name;
+
+  const rating = document.createElement("p");
+  rating.className = "walker-rating";
+  rating.setAttribute("aria-label", `Rating: ${walker.rating} out of 5`);
+  rating.textContent = `★ ${walker.rating} / 5`;
+
+  const availability = document.createElement("p");
+  availability.className = "walker-availability";
+  availability.textContent = walker.availability;
+
+  const rate = document.createElement("p");
+  rate.className = "walker-rate";
+  rate.textContent = `${walker.hour_rate.toFixed(2)} / hour`;
+
+  details.append(name, rating, availability);
+  card.append(image, details, rate);
+  walkerList.append(card);
 }
