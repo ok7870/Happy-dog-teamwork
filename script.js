@@ -90,6 +90,11 @@ for (const walker of walkers) {
       <p><strong>Description:</strong> ${walker.description}</p>
     `;
     document.getElementById(`walker-${walker["name"].split(" ")[0]}`).appendChild(walkerDetails);
+    console.log(walker.name);
+    console.log(walker.rating);
+    console.log(walker.hour_rate);
+    console.log(walker.availability);
+    console.log(walker.description);
     }
     else {
       document.getElementById(`walker-${walker["name"].split(" ")[0]}`).querySelector(".walker-details-popup").remove();
