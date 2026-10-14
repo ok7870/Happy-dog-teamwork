@@ -75,31 +75,66 @@ const walkerList = document.querySelector("#walker-list");
 
 for (const walker of walkers) {
   const card = document.createElement("li");
-  console.log(walker["name"].split(" ")[0]);
-  card.id = `walker-${walker["name"].split(" ")[0]}`;
+  card.id = `walker-${walker.id}`;
   card.className = "walker-card";
+  let walkerMap = null;
+
   card.onclick = () => {
-    if (!Boolean(document.getElementById(`walker-${walker["name"].split(" ")[0]}`).querySelector(".walker-details-popup"))) {
-    let walkerDetails = document.createElement("div");
+    const existingDetails = card.querySelector(".walker-details-popup");
+
+    if (existingDetails) {
+      if (walkerMap) {
+        walkerMap.remove();
+        walkerMap = null;
+      }
+      existingDetails.remove();
+      return;
+    }
+
+    const walkerDetails = document.createElement("div");
     walkerDetails.className = "walker-details-popup";
-    walkerDetails.innerHTML = `
-      <h2>${walker.name}</h2>
-      <p><strong>Rating:</strong> ${walker.rating} / 5</p>
-      <p><strong>Hourly Rate:</strong> $${walker.hour_rate.toFixed(2)}</p>
-      <p><strong>Availability:</strong> ${walker.availability}</p>
-      <p><strong>Description:</strong> ${walker.description}</p>
-    `;
-    document.getElementById(`walker-${walker["name"].split(" ")[0]}`).appendChild(walkerDetails);
-    console.log(walker.name);
-    console.log(walker.rating);
-    console.log(walker.hour_rate);
-    console.log(walker.availability);
-    console.log(walker.description);
-    }
-    else {
-      document.getElementById(`walker-${walker["name"].split(" ")[0]}`).querySelector(".walker-details-popup").remove();
-    }
-  }
+
+    const rating = document.createElement("p");
+    rating.textContent = `Rating: ${walker.rating} / 5`;
+
+    const rate = document.createElement("p");
+    rate.textContent = `Hourly rate: $${walker.hour_rate.toFixed(2)}`;
+
+    const availability = document.createElement("p");
+    availability.textContent = `Availability: ${walker.availability}`;
+
+    const description = document.createElement("p");
+    description.textContent = `About: ${walker.description}`;
+
+    const mapElement = document.createElement("div");
+    mapElement.id = `walker-map-${walker.id}`;
+    mapElement.className = "map";
+    mapElement.setAttribute("role", "region");
+    mapElement.setAttribute("aria-label", `Map showing ${walker.name}`);
+    mapElement.addEventListener("click", (event) => event.stopPropagation());
+
+    walkerDetails.append(rating, rate, availability, description, mapElement);
+    card.appendChild(walkerDetails);
+
+    walkerMap = L.map(mapElement).setView(
+      [walker.location.latitude, walker.location.longitude],
+      15,
+    );
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(walkerMap);
+
+    const popupContent = document.createElement("strong");
+    popupContent.textContent = walker.name;
+
+    L.marker([walker.location.latitude, walker.location.longitude])
+      .addTo(walkerMap)
+      .bindPopup(popupContent)
+      .openPopup();
+  };
 
   const image = document.createElement("img");
   image.className = "walker-image";
@@ -132,17 +167,3 @@ for (const walker of walkers) {
   walkerList.append(card);
 
 }
-
-  const map = L.map('map').setView([51.505, -0.09], 13);
-
-  const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: 19,
-	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
-
-for (const walker of walkers) {
-  const marker = L.marker([walker.location.latitude, walker.location.longitude]).addTo(map);
-  marker.bindPopup(`<b>${walker.name}</b><br>Rating: ${walker.rating} / 5<br>Rate: $${walker.hour_rate.toFixed(2)} / hour`);
-}
-
-//  const marker = L.marker([walkers.location.latitude, walkers.location.longitude]).addTo(map);
