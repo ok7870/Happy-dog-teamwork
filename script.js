@@ -106,14 +106,25 @@ for (const walker of walkers) {
     const description = document.createElement("p");
     description.textContent = `About: ${walker.description}`;
 
+    const locationStatus = document.createElement("p");
+    locationStatus.setAttribute("aria-live", "polite");
+    locationStatus.textContent = "Getting your device location...";
+
     const mapElement = document.createElement("div");
     mapElement.id = `walker-map-${walker.id}`;
     mapElement.className = "map";
     mapElement.setAttribute("role", "region");
     mapElement.setAttribute("aria-label", `Map showing ${walker.name}`);
-    mapElement.addEventListener("click", (event) => event.stopPropagation());
+    walkerDetails.addEventListener("click", (event) => event.stopPropagation());
 
-    walkerDetails.append(rating, rate, availability, description, mapElement);
+    walkerDetails.append(
+      rating,
+      rate,
+      availability,
+      description,
+      locationStatus,
+      mapElement,
+    );
     card.appendChild(walkerDetails);
 
     walkerMap = L.map(mapElement).setView(
@@ -130,10 +141,64 @@ for (const walker of walkers) {
     const popupContent = document.createElement("strong");
     popupContent.textContent = walker.name;
 
-    L.marker([walker.location.latitude, walker.location.longitude])
+    const walkerCoordinates = [
+      walker.location.latitude,
+      walker.location.longitude,
+    ];
+
+    L.marker(walkerCoordinates)
       .addTo(walkerMap)
       .bindPopup(popupContent)
       .openPopup();
+
+    if (!navigator.geolocation) {
+      locationStatus.textContent =
+        "Your browser does not support device location.";
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        if (!walkerMap || !mapElement.isConnected) {
+          return;
+        }
+
+        const deviceCoordinates = [
+          position.coords.latitude,
+          position.coords.longitude,
+        ];
+        const devicePopup = document.createElement("strong");
+        devicePopup.textContent = "Your device location";
+
+        L.marker(deviceCoordinates)
+          .addTo(walkerMap)
+          .bindPopup(devicePopup);
+        L.circle(deviceCoordinates, {
+          radius: position.coords.accuracy,
+        }).addTo(walkerMap);
+
+        locationStatus.textContent =
+          `Your coordinates: ${position.coords.latitude.toFixed(6)}, ` +
+          `${position.coords.longitude.toFixed(6)} ` +
+          `(accuracy ±${Math.round(position.coords.accuracy)} m)`;
+
+        walkerMap.fitBounds(
+          L.latLngBounds([walkerCoordinates, deviceCoordinates]),
+          { padding: [24, 24] },
+        );
+      },
+      (error) => {
+        const messages = {
+          1: "Location permission was denied. Allow location access to show your position on this map.",
+          2: "Your device location is currently unavailable.",
+          3: "The request for your device location timed out. Try opening this walker again.",
+        };
+        locationStatus.textContent =
+          messages[error.code] ??
+          `Could not get your device location: ${error.message}`;
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
+    );
   };
 
   const image = document.createElement("img");
