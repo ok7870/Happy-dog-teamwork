@@ -12,7 +12,10 @@ display: flex;
     background: none;
 }
 
-.button-group {
-    display: flex;
-    flex-direction: row;
+body {
+    background-color: yellow;
+}
+
+.map {
+    height: 180px;
 }
