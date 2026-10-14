@@ -75,7 +75,21 @@ const walkerList = document.querySelector("#walker-list");
 
 for (const walker of walkers) {
   const card = document.createElement("li");
+  console.log(walker["name"].split(" ")[0]);
+  card.id = `walker-${walker["name"].split(" ")[0]}`;
   card.className = "walker-card";
+  card.onclick = () => {
+    let walkerDetails = document.createElement("div");
+    walkerDetails.className = "walker-details-popup";
+    walkerDetails.innerHTML = `
+      <h2>${walker.name}</h2>
+      <p><strong>Rating:</strong> ${walker.rating} / 5</p>
+      <p><strong>Hourly Rate:</strong> $${walker.hour_rate.toFixed(2)}</p>
+      <p><strong>Availability:</strong> ${walker.availability}</p>
+      <p><strong>Description:</strong> ${walker.description}</p>
+    `;
+    document.getElementById(`walker-${walker["name"].split(" ")[0]}`).appendChild(walkerDetails);
+  }
 
   const image = document.createElement("img");
   image.className = "walker-image";
