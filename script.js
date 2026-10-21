@@ -109,6 +109,7 @@ for (const walker of walkers) {
     const locationStatus = document.createElement("p");
     locationStatus.setAttribute("aria-live", "polite");
     locationStatus.textContent = "Getting your device location...";
+    locationStatus.style.display="none"
 
     const mapElement = document.createElement("div");
     mapElement.id = `walker-map-${walker.id}`;
