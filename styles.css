@@ -2,6 +2,9 @@ header {
 display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgb(228, 182, 66);
+    padding-bottom: 10px;
+    padding-top: 5px;
 }
 
 .logo{
@@ -10,10 +13,12 @@ display: flex;
     font-size: x-large;
     font-weight: 500;
     background: none;
+    margin-bottom: 10px;
+    font-family: cursive;
 }
 
 body {
-    background-color: rgb(162, 162, 255);
+    background-color: white;
 }
 
 .map {
@@ -32,6 +37,21 @@ html, body {
 		max-height: 100%;
 }
 
-.walker_card {
-    background-color: rgb(255, 0, 115);
+.walker-card {
+    background-color: rgb(255, 238, 195);
+    border: solid;
+    border-color: rgb(228, 182, 66);
+    border-width: 5px;
+    margin: 10px;
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-top: 10px;
+    max-width: 75%;
 }
+
+.nupp{
+    height: 35px;
+    width: 65px;
+    background-color: rgb(223, 223, 216);
+}
+
